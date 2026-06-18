@@ -1,0 +1,43 @@
+{% extends 'onboarding/base.html' %}
+
+{% block content %}
+
+{% if employee %}
+<div class="row mb-4">
+    <div class="col">
+        <h2 class="fw-bold">Welcome, {{ employee.full_name }}</h2>
+        <p class="text-muted">Your onboarding request has been submitted.</p>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5>Onboarding Status</h5>
+
+        <div class="progress my-3" style="height: 12px;">
+            <div class="progress-bar" style="width: 35%;"></div>
+        </div>
+
+        <span class="badge bg-warning text-dark">{{ employee.status }}</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5>Submitted Details</h5>
+
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p><strong>Phone:</strong> {{ employee.phone }}</p>
+        <p><strong>Type:</strong> {{ employee.employee_type }}</p>
+        <p><strong>Joining Date:</strong> {{ employee.joining_date }}</p>
+        <p><strong>Address:</strong> {{ employee.address }}</p>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-info">
+    No employee profile found yet.
+</div>
+{% endif %}
+
+{% endblock %}

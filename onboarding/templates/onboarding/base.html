@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeopleFlow</title>
+
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/peopleflow.css' %}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            PeopleFlow
+        </a>
+
+        <div class="ms-auto">
+            <a href="/employee/profile/" class="btn btn-primary me-2">
+                Start Onboarding
+            </a>
+
+            <a href="/hr/dashboard/" class="btn btn-outline-dark">
+                HR Dashboard
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<div class="container py-5">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
