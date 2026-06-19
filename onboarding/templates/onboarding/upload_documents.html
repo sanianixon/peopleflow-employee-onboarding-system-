@@ -1,0 +1,46 @@
+{% extends 'onboarding/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <h2 class="fw-bold mb-2">Upload Documents</h2>
+                <p class="text-muted mb-4">
+                    Upload required documents for {{ employee.full_name }}.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for doc in document_types %}
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">
+                            {{ doc.name }}
+                            {% if doc.required %}
+                                <span class="text-danger">*</span>
+                            {% endif %}
+                        </label>
+                        <input type="file" name="document_{{ doc.id }}" class="form-control">
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary">
+                        Submit Documents
+                    </button>
+
+                    <a href="/employee/dashboard/" class="btn btn-outline-secondary ms-2">
+                        Back
+                    </a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

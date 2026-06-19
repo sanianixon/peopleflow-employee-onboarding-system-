@@ -10,22 +10,57 @@
     </div>
 </div>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <h5>Onboarding Status</h5>
+<div class="row g-4 mb-4 align-items-stretch">
 
-        <div class="progress my-3" style="height: 12px;">
-            <div class="progress-bar" style="width: 35%;"></div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <p class="text-muted mb-1">Profile Details</p>
+                <h5 class="mb-0 text-success">Completed</h5>
+            </div>
         </div>
-
-        <span class="badge bg-warning text-dark">{{ employee.status }}</span>
     </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <p class="text-muted mb-1">Documents</p>
+
+                {% if documents %}
+                    <h5 class="mb-0 text-success">Uploaded</h5>
+                {% else %}
+                    <h5 class="mb-0 text-warning">Pending</h5>
+                    <a href="{% url 'upload_documents' %}" class="btn btn-primary btn-sm mt-3">
+                        Upload Documents
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+                <p class="text-muted mb-1">HR Status</p>
+
+                {% if employee.status == 'SUBMITTED' %}
+                    <h5 class="text-secondary">Waiting for Documents</h5>
+                {% elif employee.status == 'UNDER_REVIEW' %}
+                    <h5 class="text-warning">Awaiting Review</h5>
+                {% elif employee.status == 'APPROVED' %}
+                    <h5 class="text-success">Approved</h5>
+                {% elif employee.status == 'REJECTED' %}
+                    <h5 class="text-danger">Rejected</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="card shadow-sm">
     <div class="card-body">
         <h5>Submitted Details</h5>
-
         <p><strong>Email:</strong> {{ employee.email }}</p>
         <p><strong>Phone:</strong> {{ employee.phone }}</p>
         <p><strong>Type:</strong> {{ employee.employee_type }}</p>

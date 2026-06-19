@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import EmployeeProfile, EmployeeDocument
+from .models import EmployeeProfile, EmployeeDocument, DocumentType
 
 
 def home(request):
@@ -49,4 +50,37 @@ def hr_dashboard(request):
 
     return render(request, 'onboarding/hr_dashboard.html', {
         'employees': employees
+    })
+
+def upload_documents(request):
+    employee = EmployeeProfile.objects.last()
+
+    if not employee:
+        return redirect('employee_profile_form')
+
+    document_types = DocumentType.objects.all()
+
+    if employee.employee_type == 'FRESHER':
+        document_types = document_types.exclude(name__in=['Experience Letter', 'Last Salary Slip'])
+
+    if request.method == 'POST':
+        for document_type in document_types:
+            uploaded_file = request.FILES.get(f'document_{document_type.id}')
+
+            if uploaded_file:
+                EmployeeDocument.objects.create(
+                    employee=employee,
+                    document_type=document_type,
+                    file=uploaded_file,
+                    status='UPLOADED'
+                )
+
+        employee.status = 'UNDER_REVIEW'
+        employee.save()
+
+        return redirect('employee_dashboard')
+
+    return render(request, 'onboarding/upload_documents.html', {
+        'employee': employee,
+        'document_types': document_types
     })

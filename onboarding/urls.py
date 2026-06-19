@@ -6,4 +6,5 @@ urlpatterns = [
     path('employee/profile/', views.employee_profile_form, name='employee_profile_form'),
     path('employee/dashboard/', views.employee_dashboard, name='employee_dashboard'),
     path('hr/dashboard/', views.hr_dashboard, name='hr_dashboard'),
+    path('employee/upload-documents/', views.upload_documents, name='upload_documents'),
 ]
